@@ -1,0 +1,78 @@
+console.log("🎓 TechEd Institute Website Setup Instructions")
+console.log("=".repeat(50))
+
+console.log("\n📋 ENVIRONMENT SETUP:")
+console.log("1. Create a .env.local file in your project root")
+console.log("2. Add the following environment variables:")
+console.log(`
+GMAIL_USER=dimplebrar13@gmail.com
+GMAIL_APP_PASSWORD=your-16-character-app-password
+`)
+
+console.log("\n🔐 GMAIL CONFIGURATION:")
+console.log("1. Enable 2-Factor Authentication on dimplebrar13@gmail.com")
+console.log("2. Go to Google Account Settings > Security")
+console.log("3. Under '2-Step Verification', click 'App passwords'")
+console.log("4. Select 'Mail' and generate a password")
+console.log("5. Use this 16-character password in GMAIL_APP_PASSWORD")
+
+console.log("\n🚀 DEPLOYMENT OPTIONS:")
+console.log("• Vercel (Recommended): Connect GitHub repo and deploy")
+console.log("• Netlify: Drag and drop build folder")
+console.log("• Docker: Use provided Dockerfile")
+
+console.log("\n📊 ANALYTICS SETUP:")
+console.log("1. Create Google Analytics account")
+console.log("2. Replace 'GA_MEASUREMENT_ID' in layout.tsx")
+console.log("3. Add your tracking ID")
+
+console.log("\n🎨 CUSTOMIZATION:")
+console.log("• Replace 'TechEd Institute' with your institute name")
+console.log("• Update contact information in components/footer.tsx")
+console.log("• Replace placeholder images with actual photos")
+console.log("• Customize colors in tailwind.config.ts")
+
+console.log("\n✅ TESTING CHECKLIST:")
+console.log("□ Hero slider navigation works")
+console.log("□ Apply Now modal opens and submits")
+console.log("□ Course details modal displays correctly")
+console.log("□ Contact form sends emails")
+console.log("□ All links work properly")
+console.log("□ Responsive design on mobile")
+console.log("□ Form validation works")
+console.log("□ Email notifications received")
+
+console.log("\n🔧 DEVELOPMENT COMMANDS:")
+console.log("npm install          # Install dependencies")
+console.log("npm run dev          # Start development server")
+console.log("npm run build        # Build for production")
+console.log("npm run start        # Start production server")
+
+console.log("\n📱 FEATURES INCLUDED:")
+console.log("✅ Responsive Bootstrap carousel slider")
+console.log("✅ 11 detailed professional courses")
+console.log("✅ Apply Now modal with email integration")
+console.log("✅ Course details modals with full curriculum")
+console.log("✅ Contact form with validation")
+console.log("✅ SEO optimization with meta tags")
+console.log("✅ Google Analytics integration")
+console.log("✅ Professional design with animations")
+console.log("✅ Mobile-first responsive design")
+console.log("✅ Accessibility features")
+
+console.log("\n🎯 NEXT STEPS:")
+console.log("1. Configure environment variables")
+console.log("2. Test email functionality")
+console.log("3. Customize branding and content")
+console.log("4. Add real course images")
+console.log("5. Deploy to production")
+console.log("6. Set up domain and SSL")
+console.log("7. Configure Google Analytics")
+console.log("8. Test all functionality")
+
+console.log("\n📞 SUPPORT:")
+console.log("For technical support or customization:")
+console.log("Email: support@techedinstitute.com")
+console.log("Documentation: README.md")
+
+console.log("\n🎉 Your professional educational institute website is ready!")
