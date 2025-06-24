@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechEd Institute - Our Success in Numbers</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stats-section {
+            width: 100%;
+            max-width: 1200px;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .section-header {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .stat-description {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .secondary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .secondary-stat {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .secondary-stat:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .secondary-stat .stat-number {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            min-height: 50px;
+        }
+
+        .secondary-stat .stat-label {
+            font-size: 1rem;
+        }
+
+        .secondary-stat .stat-description {
+            font-size: 0.8rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .stat-card {
+                padding: 30px 15px;
+            }
+            
+            .stat-number {
+                font-size: 2.8rem;
+            }
+        }
+
+        /* Animation Classes */
+        .counting {
+            color: #4ecdc4;
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: relative;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="stats-section">
+        <div class="section-header">
+            <h2 class="section-title">Our Success in Numbers</h2>
+            <p class="section-subtitle">
+                Proven track record of excellence in education and industry-leading placement rates since 2018
+            </p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-users stat-icon"></i>
+                <div class="stat-number" data-target="10500">0</div>
+                <div class="stat-label">Students Trained</div>
+                <div class="stat-description">Since 2018</div>
+            </div>
+
+            <div class="stat-card">
+                <i class="fas fa-chart-line stat-icon"></i>
+                <div class="stat-number" data-target="95" data-suffix="%">0%</div>
+                <div class="stat-label">Placement Rate</div>
+                <div class="stat-description">Industry Leading</div>
+            </div>
+
+            <div class="stat-card">
+                <i class="fas fa-book-open stat-icon"></i>
+                <div class="stat-number" data-target="45">0</div>
+                <div class="stat-label">Professional Courses</div>
+                <div class="stat-description">Industry Focused</div>
+            </div>
+
+            <div class="stat-card">
+                <i class="fas fa-chalkboard-teacher stat-icon"></i>
+                <div class="stat-number" data-target="30">0</div>
+                <div class="stat-label">Expert Instructors</div>
+                <div class="stat-description">Industry Veterans</div>
+            </div>
+        </div>
+
+        <div class="secondary-stats">
+            <div class="secondary-stat">
+                <i class="fas fa-calendar-alt stat-icon" style="font-size: 2rem;"></i>
+                <div class="stat-number" data-target="7">0</div>
+                <div class="stat-label">Years of Excellence</div>
+                <div class="stat-description">Established 2018</div>
+            </div>
+
+            <div class="secondary-stat">
+                <i class="fas fa-building stat-icon" style="font-size: 2rem;"></i>
+                <div class="stat-number" data-target="200" data-suffix="+">0+</div>
+                <div class="stat-label">Companies Hiring</div>
+                <div class="stat-description">Our Alumni</div>
+            </div>
+
+            <div class="secondary-stat">
+                <i class="fas fa-star stat-icon" style="font-size: 2rem;"></i>
+                <div class="stat-number" data-target="98" data-suffix="%">0%</div>
+                <div class="stat-label">Student Satisfaction</div>
+                <div class="stat-description">Based on Reviews</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class CounterAnimation {
+            constructor() {
+                this.counters = document.querySelectorAll('.stat-number');
+                this.animationDuration = 2000; // 2 seconds
+                this.hasAnimated = false;
+                this.init();
+            }
+
+            init() {
+                // Start animation when page loads
+                setTimeout(() => {
+                    this.startAnimation();
+                }, 500);
+
+                // Optional: Restart animation on click
+                document.addEventListener('click', () => {
+                    if (this.hasAnimated) {
+                        this.resetAndAnimate();
+                    }
+                });
+            }
+
+            startAnimation() {
+                this.counters.forEach(counter => {
+                    this.animateCounter(counter);
+                });
+                this.hasAnimated = true;
+            }
+
+            resetAndAnimate() {
+                this.counters.forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    const suffix = counter.getAttribute('data-suffix') || '';
+                    counter.textContent = '0' + suffix;
+                    counter.classList.remove('pulse');
+                });
+
+                setTimeout(() => {
+                    this.startAnimation();
+                }, 100);
+            }
+
+            animateCounter(counter) {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const suffix = counter.getAttribute('data-suffix') || '';
+                const startTime = performance.now();
+                
+                // Add counting class for color change
+                counter.classList.add('counting');
+                counter.parentElement.classList.add('loading');
+
+                const animate = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / this.animationDuration, 1);
+                    
+                    // Smooth easing function (ease-out cubic)
+                    const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+                    
+                    const currentValue = Math.floor(easeOutCubic * target);
+                    
+                    // Format number with commas for large numbers
+                    const formattedValue = this.formatNumber(currentValue);
+                    counter.textContent = formattedValue + suffix;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        // Animation complete
+                        counter.textContent = this.formatNumber(target) + suffix;
+                        counter.classList.remove('counting');
+                        counter.classList.add('pulse');
+                        counter.parentElement.classList.remove('loading');
+                        
+                        // Add completion effect
+                        this.addCompletionEffect(counter);
+                    }
+                };
+
+                requestAnimationFrame(animate);
+            }
+
+            formatNumber(num) {
+                if (num >= 1000) {
+                    return num.toLocaleString();
+                }
+                return num.toString();
+            }
+
+            addCompletionEffect(counter) {
+                // Create sparkle effect
+                const sparkles = document.createElement('div');
+                sparkles.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 100px;
+                    height: 100px;
+                    margin: -50px 0 0 -50px;
+                    pointer-events: none;
+                    z-index: 10;
+                `;
+
+                for (let i = 0; i < 6; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.style.cssText = `
+                        position: absolute;
+                        width: 4px;
+                        height: 4px;
+                        background: white;
+                        border-radius: 50%;
+                        animation: sparkle 0.6s ease-out forwards;
+                        animation-delay: ${i * 0.1}s;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    `;
+                    sparkles.appendChild(sparkle);
+                }
+
+                counter.parentElement.style.position = 'relative';
+                counter.parentElement.appendChild(sparkles);
+
+                // Remove sparkles after animation
+                setTimeout(() => {
+                    if (sparkles.parentElement) {
+                        sparkles.parentElement.removeChild(sparkles);
+                    }
+                }, 1200);
+            }
+        }
+
+        // Add sparkle animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle {
+                0% {
+                    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(-50%, -50%) scale(1) rotate(180deg) translateY(-30px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize counter animation when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new CounterAnimation();
+        });
+
+        // Add some interactive features
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add hover sound effect (optional)
+            const cards = document.querySelectorAll('.stat-card, .secondary-stat');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = card.classList.contains('stat-card') ? 
+                        'translateY(-10px) scale(1.02)' : 'scale(1.08)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = card.classList.contains('stat-card') ? 
+                        'translateY(0) scale(1)' : 'scale(1)';
+                });
+            });
+
+            // Add click to restart animation
+            const title = document.querySelector('.section-title');
+            title.style.cursor = 'pointer';
+            title.title = 'Click to restart animation';
+        });
+    </script>
+</body>
+</html>

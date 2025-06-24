@@ -10,7 +10,7 @@ interface CounterProps {
   prefix?: string
 }
 
-export function AnimatedCounter({ target, duration = 3000, suffix = "", prefix = "" }: CounterProps) {
+export function AnimatedCounter({ target, duration = 2000, suffix = "", prefix = "" }: CounterProps) {
   const [count, setCount] = useState(0)
   const [hasStarted, setHasStarted] = useState(false)
   const counterRef = useRef<HTMLDivElement>(null)
@@ -35,26 +35,39 @@ export function AnimatedCounter({ target, duration = 3000, suffix = "", prefix =
   useEffect(() => {
     if (!hasStarted) return
 
-    const increment = target / 100 // 100 steps
-    let current = 0
+    const startTime = performance.now()
 
-    const timer = setInterval(() => {
-      current += increment
-      if (current >= target) {
-        setCount(target)
-        clearInterval(timer)
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime
+      const progress = Math.min(elapsed / duration, 1)
+
+      // Smooth easing function (ease-out cubic)
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3)
+      const currentCount = Math.floor(easeOutCubic * target)
+
+      setCount(currentCount)
+
+      if (progress < 1) {
+        requestAnimationFrame(animate)
       } else {
-        setCount(Math.floor(current))
+        setCount(target)
       }
-    }, duration / 100)
+    }
 
-    return () => clearInterval(timer)
+    requestAnimationFrame(animate)
   }, [hasStarted, target, duration])
+
+  const formatNumber = (num: number) => {
+    if (num >= 1000) {
+      return num.toLocaleString()
+    }
+    return num.toString()
+  }
 
   return (
     <div ref={counterRef} className="text-4xl md:text-5xl font-bold mb-2 text-white">
       {prefix}
-      {count.toLocaleString()}
+      {formatNumber(count)}
       {suffix}
     </div>
   )
@@ -121,7 +134,7 @@ export default function StatsCounter() {
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-6">Our Success in Numbers</h2>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              Proven track record of excellence in education and industry-leading placement rates
+              Proven track record of excellence in education and industry-leading placement rates since 2018
             </p>
           </div>
 
@@ -130,7 +143,7 @@ export default function StatsCounter() {
             <div className="text-center group">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                 <Users className="w-12 h-12 mx-auto mb-4 text-blue-200" />
-                <AnimatedCounter target={25000} suffix="+" />
+                <AnimatedCounter target={10500} />
                 <div className="text-lg font-semibold mb-1">Students Trained</div>
                 <div className="text-blue-200 text-sm">Since 2018</div>
               </div>
@@ -139,7 +152,7 @@ export default function StatsCounter() {
             <div className="text-center group">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                 <TrendingUp className="w-12 h-12 mx-auto mb-4 text-green-200" />
-                <AnimatedCounter target={94} suffix="%" />
+                <AnimatedCounter target={95} suffix="%" />
                 <div className="text-lg font-semibold mb-1">Placement Rate</div>
                 <div className="text-blue-200 text-sm">Industry Leading</div>
               </div>
@@ -148,7 +161,7 @@ export default function StatsCounter() {
             <div className="text-center group">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                 <BookOpen className="w-12 h-12 mx-auto mb-4 text-purple-200" />
-                <AnimatedCounter target={11} />
+                <AnimatedCounter target={45} />
                 <div className="text-lg font-semibold mb-1">Professional Courses</div>
                 <div className="text-blue-200 text-sm">Industry Focused</div>
               </div>
@@ -157,7 +170,7 @@ export default function StatsCounter() {
             <div className="text-center group">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                 <Award className="w-12 h-12 mx-auto mb-4 text-yellow-200" />
-                <AnimatedCounter target={75} suffix="+" />
+                <AnimatedCounter target={30} />
                 <div className="text-lg font-semibold mb-1">Expert Instructors</div>
                 <div className="text-blue-200 text-sm">Industry Veterans</div>
               </div>
@@ -169,18 +182,18 @@ export default function StatsCounter() {
             <div className="text-center">
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
                 <Clock className="w-8 h-8 mx-auto mb-3 text-blue-200" />
-                <AnimatedCounter target={6} />
-                <div className="text-sm font-semibold">Years Excellence</div>
-                <div className="text-blue-200 text-xs">Est. 2018</div>
+                <AnimatedCounter target={7} />
+                <div className="text-sm font-semibold">Years of Excellence</div>
+                <div className="text-blue-200 text-xs">Established 2018</div>
               </div>
             </div>
 
             <div className="text-center">
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
                 <Building className="w-8 h-8 mx-auto mb-3 text-green-200" />
-                <AnimatedCounter target={750} suffix="+" />
-                <div className="text-sm font-semibold">Partner Companies</div>
-                <div className="text-blue-200 text-xs">Hiring Alumni</div>
+                <AnimatedCounter target={200} suffix="+" />
+                <div className="text-sm font-semibold">Companies Hiring</div>
+                <div className="text-blue-200 text-xs">Our Alumni</div>
               </div>
             </div>
 
@@ -188,8 +201,8 @@ export default function StatsCounter() {
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
                 <Star className="w-8 h-8 mx-auto mb-3 text-yellow-200" />
                 <AnimatedCounter target={98} suffix="%" />
-                <div className="text-sm font-semibold">Satisfaction Rate</div>
-                <div className="text-blue-200 text-xs">Student Reviews</div>
+                <div className="text-sm font-semibold">Student Satisfaction</div>
+                <div className="text-blue-200 text-xs">Based on Reviews</div>
               </div>
             </div>
           </div>
@@ -197,13 +210,13 @@ export default function StatsCounter() {
           {/* Achievement Highlights */}
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <h3 className="text-2xl font-bold mb-2">₹12.5 LPA</h3>
+              <h3 className="text-2xl font-bold mb-2">₹15 LPA</h3>
               <p className="text-blue-100">Highest Package Offered</p>
               <p className="text-sm text-blue-200 mt-1">Software Development Graduate</p>
             </div>
 
             <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <h3 className="text-2xl font-bold mb-2">15 Days</h3>
+              <h3 className="text-2xl font-bold mb-2">12 Days</h3>
               <p className="text-blue-100">Average Placement Time</p>
               <p className="text-sm text-blue-200 mt-1">After Course Completion</p>
             </div>
@@ -211,7 +224,7 @@ export default function StatsCounter() {
             <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
               <h3 className="text-2xl font-bold mb-2">4.9/5</h3>
               <p className="text-blue-100">Average Course Rating</p>
-              <p className="text-sm text-blue-200 mt-1">Based on 5000+ Reviews</p>
+              <p className="text-sm text-blue-200 mt-1">Based on 3000+ Reviews</p>
             </div>
           </div>
         </div>
