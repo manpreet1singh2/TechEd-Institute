@@ -752,7 +752,7 @@ If you encounter any issues:
 **Happy coding! 🚀**
 \`\`\`
 
-```plaintext file=".env.example"
+\`\`\`plaintext file=".env.example"
 # Gmail Configuration for Email Sending
 # Replace with your actual Gmail credentials
 GMAIL_USER=your-email@gmail.com
