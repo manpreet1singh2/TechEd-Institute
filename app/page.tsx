@@ -3,12 +3,10 @@ import CoursesPreview from "@/components/courses-preview"
 import WhyChooseUs from "@/components/why-choose-us"
 import StatsCounter from "@/components/stats-counter"
 import ApplyNowModal from "@/components/apply-now-modal"
-import CounterDebug from "@/components/counter-debug"
 
 export default function HomePage() {
   return (
     <main>
-      <CounterDebug />
       <HeroSlider />
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 text-center">

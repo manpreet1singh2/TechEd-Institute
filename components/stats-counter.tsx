@@ -1,8 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { TrendingUp, Users, Award, BookOpen, Building, Star, Clock, Globe } from "lucide-react"
-import { SimpleCounter } from "./simple-counter"
+import { TrendingUp, Users, Award, BookOpen, Building, Star, Clock } from "lucide-react"
 
 interface CounterProps {
   target: number
@@ -11,64 +10,46 @@ interface CounterProps {
   prefix?: string
 }
 
-export function AnimatedCounter({ target, duration = 2500, suffix = "", prefix = "" }: CounterProps) {
+export function AnimatedCounter({ target, duration = 3000, suffix = "", prefix = "" }: CounterProps) {
   const [count, setCount] = useState(0)
-  const [isVisible, setIsVisible] = useState(false)
+  const [hasStarted, setHasStarted] = useState(false)
   const counterRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
+        if (entry.isIntersecting && !hasStarted) {
+          setHasStarted(true)
         }
       },
-      { threshold: 0.3 },
+      { threshold: 0.2 },
     )
 
-    const currentRef = counterRef.current
-    if (currentRef) {
-      observer.observe(currentRef)
+    if (counterRef.current) {
+      observer.observe(counterRef.current)
     }
 
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef)
-      }
-    }
-  }, [])
+    return () => observer.disconnect()
+  }, [hasStarted])
 
   useEffect(() => {
-    if (!isVisible) return
+    if (!hasStarted) return
 
-    let startTime: number | null = null
-    let animationId: number
+    const increment = target / 100 // 100 steps
+    let current = 0
 
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp
-      const progress = Math.min((timestamp - startTime) / duration, 1)
-
-      // Smooth easing function
-      const easeOutCubic = 1 - Math.pow(1 - progress, 3)
-      const currentCount = Math.floor(easeOutCubic * target)
-
-      setCount(currentCount)
-
-      if (progress < 1) {
-        animationId = requestAnimationFrame(animate)
-      } else {
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= target) {
         setCount(target)
+        clearInterval(timer)
+      } else {
+        setCount(Math.floor(current))
       }
-    }
+    }, duration / 100)
 
-    animationId = requestAnimationFrame(animate)
-
-    return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId)
-      }
-    }
-  }, [isVisible, target, duration])
+    return () => clearInterval(timer)
+  }, [hasStarted, target, duration])
 
   return (
     <div ref={counterRef} className="text-4xl md:text-5xl font-bold mb-2 text-white">
@@ -136,16 +117,6 @@ export default function StatsCounter() {
 
       {/* Main Stats Section */}
       <section className="py-20 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }}
-          />
-        </div>
-
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-6">Our Success in Numbers</h2>
@@ -159,7 +130,7 @@ export default function StatsCounter() {
             <div className="text-center group">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                 <Users className="w-12 h-12 mx-auto mb-4 text-blue-200" />
-                <SimpleCounter target={25000} suffix="+" />
+                <AnimatedCounter target={25000} suffix="+" />
                 <div className="text-lg font-semibold mb-1">Students Trained</div>
                 <div className="text-blue-200 text-sm">Since 2018</div>
               </div>
@@ -168,7 +139,7 @@ export default function StatsCounter() {
             <div className="text-center group">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                 <TrendingUp className="w-12 h-12 mx-auto mb-4 text-green-200" />
-                <SimpleCounter target={94} suffix="%" />
+                <AnimatedCounter target={94} suffix="%" />
                 <div className="text-lg font-semibold mb-1">Placement Rate</div>
                 <div className="text-blue-200 text-sm">Industry Leading</div>
               </div>
@@ -177,7 +148,7 @@ export default function StatsCounter() {
             <div className="text-center group">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                 <BookOpen className="w-12 h-12 mx-auto mb-4 text-purple-200" />
-                <SimpleCounter target={11} />
+                <AnimatedCounter target={11} />
                 <div className="text-lg font-semibold mb-1">Professional Courses</div>
                 <div className="text-blue-200 text-sm">Industry Focused</div>
               </div>
@@ -186,7 +157,7 @@ export default function StatsCounter() {
             <div className="text-center group">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                 <Award className="w-12 h-12 mx-auto mb-4 text-yellow-200" />
-                <SimpleCounter target={75} suffix="+" />
+                <AnimatedCounter target={75} suffix="+" />
                 <div className="text-lg font-semibold mb-1">Expert Instructors</div>
                 <div className="text-blue-200 text-sm">Industry Veterans</div>
               </div>
@@ -194,11 +165,11 @@ export default function StatsCounter() {
           </div>
 
           {/* Secondary Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
                 <Clock className="w-8 h-8 mx-auto mb-3 text-blue-200" />
-                <SimpleCounter target={6} />
+                <AnimatedCounter target={6} />
                 <div className="text-sm font-semibold">Years Excellence</div>
                 <div className="text-blue-200 text-xs">Est. 2018</div>
               </div>
@@ -207,7 +178,7 @@ export default function StatsCounter() {
             <div className="text-center">
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
                 <Building className="w-8 h-8 mx-auto mb-3 text-green-200" />
-                <SimpleCounter target={750} suffix="+" />
+                <AnimatedCounter target={750} suffix="+" />
                 <div className="text-sm font-semibold">Partner Companies</div>
                 <div className="text-blue-200 text-xs">Hiring Alumni</div>
               </div>
@@ -216,18 +187,9 @@ export default function StatsCounter() {
             <div className="text-center">
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
                 <Star className="w-8 h-8 mx-auto mb-3 text-yellow-200" />
-                <SimpleCounter target={98} suffix="%" />
+                <AnimatedCounter target={98} suffix="%" />
                 <div className="text-sm font-semibold">Satisfaction Rate</div>
                 <div className="text-blue-200 text-xs">Student Reviews</div>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
-                <Globe className="w-8 h-8 mx-auto mb-3 text-purple-200" />
-                <SimpleCounter target={45} suffix="+" />
-                <div className="text-sm font-semibold">Countries</div>
-                <div className="text-blue-200 text-xs">Global Reach</div>
               </div>
             </div>
           </div>

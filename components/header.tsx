@@ -27,12 +27,8 @@ export default function Header() {
   }, [])
 
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-lg py-2" : "bg-white/95 backdrop-blur-sm py-4"
-      }`}
-    >
-      <nav className="container mx-auto px-4">
+    <header className="fixed top-0 w-full z-50 bg-white shadow-md">
+      <nav className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
           <Link href="/" className="flex items-center space-x-3">
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-lg">

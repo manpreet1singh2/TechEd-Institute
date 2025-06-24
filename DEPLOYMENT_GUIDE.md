@@ -20,7 +20,7 @@ Before starting, ensure you have:
 \`\`\`
 techmindshub-website/
 ├── api/
-│   ├── apply.js          # Serverless function for applications
+��   ├── apply.js          # Serverless function for applications
 │   └── contact.js        # Serverless function for contact form
 ├── public/
 │   ├── index.html        # Main frontend file
