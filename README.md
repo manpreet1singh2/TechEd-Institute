@@ -3,6 +3,11 @@
 A production-ready Next.js 15 application showcasing **11 professional training courses** (technology & management), complete with responsive design, email-enabled application/contact forms, SEO, analytics, Docker & more.
 
 ---
+📍 Live Demo
+You can view the live version of the project here:
+🔗 Live Site – [Courses Page](https://v0-new-project-vs7ityjvzh0.vercel.app/)
+
+
 
 ## ✨ Feature Overview
 | Category            | Highlights                                                                                  |
