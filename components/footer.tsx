@@ -11,7 +11,6 @@ export default function Footer() {
     { name: "Courses", href: "/courses" },
     { name: "About Us", href: "/about" },
     { name: "Contact", href: "/contact" },
-    { name: "Apply Now", href: "#", onClick: true },
   ]
 
   const popularCourses = [
@@ -24,11 +23,28 @@ export default function Footer() {
   ]
 
   const socialLinks = [
-    { name: "Facebook", href: "https://facebook.com", icon: Facebook, color: "hover:text-blue-600" },
-    { name: "Instagram", href: "https://instagram.com", icon: Instagram, color: "hover:text-pink-600" },
-    { name: "LinkedIn", href: "https://linkedin.com", icon: Linkedin, color: "hover:text-blue-700" },
-    { name: "Twitter", href: "https://twitter.com", icon: Twitter, color: "hover:text-blue-400" },
+    { name: "Facebook", href: "https://facebook.com/techmindsHub", icon: Facebook, color: "hover:text-blue-600" },
+    { name: "Instagram", href: "https://instagram.com/techmindsHub", icon: Instagram, color: "hover:text-pink-600" },
+    {
+      name: "LinkedIn",
+      href: "https://linkedin.com/company/techmindsHub",
+      icon: Linkedin,
+      color: "hover:text-blue-700",
+    },
+    { name: "Twitter", href: "https://twitter.com/techmindsHub", icon: Twitter, color: "hover:text-blue-400" },
   ]
+
+  const handleApplyNowClick = () => {
+    try {
+      const modal = document.getElementById("apply-now-modal")
+      if (modal) {
+        modal.style.display = "flex"
+        modal.classList.add("show")
+      }
+    } catch (error) {
+      console.error("Error opening apply modal:", error)
+    }
+  }
 
   return (
     <footer className="bg-gray-900 text-white">
@@ -41,7 +57,7 @@ export default function Footer() {
                 <GraduationCap className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold">TechEd Institute</h3>
+                <h3 className="text-2xl font-bold">TechMindsHub</h3>
                 <p className="text-sm text-gray-400">Professional Training</p>
               </div>
             </div>
@@ -71,26 +87,22 @@ export default function Footer() {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  {link.onClick ? (
-                    <button
-                      onClick={() => {
-                        const modal = document.getElementById("apply-now-modal")
-                        if (modal) modal.style.display = "flex"
-                      }}
-                      className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform duration-200"
-                    >
-                      {link.name}
-                    </button>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform duration-200 block"
-                    >
-                      {link.name}
-                    </Link>
-                  )}
+                  <Link
+                    href={link.href}
+                    className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform duration-200 block"
+                  >
+                    {link.name}
+                  </Link>
                 </li>
               ))}
+              <li>
+                <button
+                  onClick={handleApplyNowClick}
+                  className="text-gray-300 hover:text-white transition-colors hover:translate-x-1 transform duration-200 text-left"
+                >
+                  Apply Now
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -161,8 +173,8 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-center md:text-left mb-4 md:mb-0">
-              <p className="text-gray-400 text-sm">© {currentYear} TechEd Institute. All rights reserved.</p>
-              <p className="text-gray-500 text-xs mt-1">Transforming careers through quality education since 2019</p>
+              <p className="text-gray-400 text-sm">© {currentYear} TechMindsHub. All rights reserved.</p>
+              <p className="text-gray-500 text-xs mt-1">Transforming careers through quality education since 2018</p>
             </div>
             <div className="flex space-x-6 text-sm">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">

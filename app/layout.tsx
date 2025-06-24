@@ -1,77 +1,28 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Poppins } from "next/font/google"
+import { Inter } from "next/font/google"
 import "./globals.css"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import Script from "next/script"
+import CourseDetailsModal from "@/components/course-details-modal"
+import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-poppins",
-})
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "TechEd Institute - Professional Training Courses | Software Development, Data Science, AI",
+  title: "TechMindsHub - Professional Training Institute",
   description:
-    "Transform your career with TechEd Institute's 11 professional training courses. Expert-led programs in Software Development, Data Science, AI, Cloud Computing, Cybersecurity, and more. 90% placement rate.",
-  keywords:
-    "software development courses, data science training, AI courses, cloud computing, cybersecurity training, digital marketing, professional training institute, online courses, career transformation",
-  authors: [{ name: "TechEd Institute" }],
-  creator: "TechEd Institute",
-  publisher: "TechEd Institute",
-  robots: "index, follow",
+    "Your gateway to industry-ready skills in technology and management. 11 cutting-edge courses designed for real-world success.",
+  keywords: "programming, software development, data science, AI, machine learning, courses, training, education",
+  authors: [{ name: "TechMindsHub" }],
   openGraph: {
+    title: "TechMindsHub - Professional Training Institute",
+    description: "Transform your career with industry-focused courses in technology and management",
     type: "website",
     locale: "en_US",
-    url: "https://techedinstitute.com",
-    title: "TechEd Institute - Professional Training Courses",
-    description:
-      "Transform your career with industry-ready skills. 11 professional courses, expert instructors, 90% placement rate.",
-    siteName: "TechEd Institute",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "TechEd Institute - Professional Training Courses",
-    description:
-      "Transform your career with industry-ready skills. 11 professional courses, expert instructors, 90% placement rate.",
-    creator: "@techedinstitute",
-  },
-  verification: {
-    google: "your-google-verification-code",
   },
     generator: 'v0.dev'
-}
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "EducationalOrganization",
-  name: "TechEd Institute",
-  description: "Professional training institute offering 11 cutting-edge courses in technology and management",
-  url: "https://techedinstitute.com",
-  logo: "https://techedinstitute.com/logo.png",
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: "+91-91158-13846",
-    contactType: "customer service",
-    email: "dimplebrar13@gmail.com",
-  },
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "123 Tech Street",
-    addressLocality: "Innovation City",
-    addressRegion: "TC",
-    postalCode: "12345",
-    addressCountry: "IN",
-  },
-  sameAs: [
-    "https://facebook.com/techedinstitute",
-    "https://instagram.com/techedinstitute",
-    "https://linkedin.com/company/techedinstitute",
-    "https://twitter.com/techedinstitute",
-  ],
 }
 
 export default function RootLayout({
@@ -80,28 +31,44 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="canonical" href="https://techedinstitute.com" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-XXXXXXX');
+            `,
+          }}
+        />
       </head>
-      <body className={`${inter.className} antialiased`}>
-        <Header />
-        <main className="pt-20">{children}</main>
-        <Footer />
-
-        {/* Google Analytics */}
-        <Script src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'GA_MEASUREMENT_ID');
-          `}
-        </Script>
+      <body className={inter.className}>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+          <CourseDetailsModal />
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   )

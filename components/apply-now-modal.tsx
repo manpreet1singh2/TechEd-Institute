@@ -97,7 +97,7 @@ export default function ApplyNowModal() {
           <div>
             <h2 className="text-3xl font-bold flex items-center">
               <PlayCircle className="w-8 h-8 mr-3" />
-              Apply Now
+              Apply Now - TechMindsHub
             </h2>
             <p className="text-blue-100 mt-2">Start your journey to a successful career</p>
           </div>
@@ -143,7 +143,7 @@ export default function ApplyNowModal() {
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                placeholder="+1 (555) 123-4567"
+                placeholder="+91 98765 43210"
                 className="h-12 border-2 focus:border-blue-500"
               />
             </div>
@@ -223,7 +223,9 @@ export default function ApplyNowModal() {
             <div className="text-center p-6 bg-green-50 border-2 border-green-200 rounded-xl">
               <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-3" />
               <p className="text-green-800 font-bold text-lg mb-2">Application Submitted Successfully!</p>
-              <p className="text-green-600">We'll contact you within 24 hours to discuss your enrollment.</p>
+              <p className="text-green-600">
+                We'll contact you within 24 hours to discuss your enrollment at TechMindsHub.
+              </p>
             </div>
           )}
 
@@ -231,7 +233,7 @@ export default function ApplyNowModal() {
             <div className="text-center p-6 bg-red-50 border-2 border-red-200 rounded-xl">
               <AlertCircle className="w-12 h-12 text-red-600 mx-auto mb-3" />
               <p className="text-red-800 font-bold text-lg mb-2">Submission Failed</p>
-              <p className="text-red-600">Please try again or contact us directly at info@techedinstitute.com</p>
+              <p className="text-red-600">Please try again or contact us directly at info@techmindsub.com</p>
             </div>
           )}
         </form>

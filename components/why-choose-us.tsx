@@ -1,107 +1,101 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Users, BookOpen, Award, Clock, Briefcase, Target } from "lucide-react"
-
-export default function WhyChooseUs() {
-  const features = [
-    {
-      icon: Users,
-      title: "Expert Instructors",
-      description:
-        "Learn from industry professionals with 10+ years of real-world experience and expertise in cutting-edge technologies.",
-      color: "from-blue-500 to-cyan-500",
-    },
-    {
-      icon: BookOpen,
-      title: "Hands-on Projects",
-      description:
-        "Build 15+ real-world projects using industry-standard tools and cutting-edge technologies that showcase your skills to employers.",
-      color: "from-green-500 to-emerald-500",
-    },
-    {
-      icon: Award,
-      title: "Industry Certifications",
-      description:
-        "Earn globally recognized certifications that validate your skills and significantly boost your career prospects and earning potential.",
-      color: "from-purple-500 to-violet-500",
-    },
-    {
-      icon: Clock,
-      title: "Flexible Durations",
-      description:
-        "Choose from multiple duration options (6 months, 3 months, or 45 days) designed to fit your schedule and learning pace.",
-      color: "from-orange-500 to-red-500",
-    },
-    {
-      icon: Briefcase,
-      title: "Placement Assistance",
-      description:
-        "Get comprehensive career support with our 90% placement rate, resume building, interview preparation, and industry connections.",
-      color: "from-red-500 to-pink-500",
-    },
-    {
-      icon: Target,
-      title: "Job-Ready Skills",
-      description:
-        "Master the exact skills and technologies that top companies are hiring for, with curriculum updated quarterly based on industry trends.",
-      color: "from-indigo-500 to-blue-500",
-    },
-  ]
-
+const WhyChooseUs = () => {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-gray-900 mb-6">Why Choose TechEd Institute?</h2>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            We provide the perfect blend of theoretical knowledge and practical skills to make you industry-ready. Join
-            thousands of successful graduates who have transformed their careers with us.
-          </p>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">Why Choose Us?</h2>
+          <p className="text-lg text-gray-600">We offer a unique learning experience that sets you up for success.</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <Card
-              key={index}
-              className="group text-center p-8 hover:shadow-2xl transition-all duration-500 hover:scale-105 border-0 shadow-lg overflow-hidden"
-            >
-              <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${feature.color}`} />
-              <CardContent className="p-0">
-                <div
-                  className={`bg-gradient-to-r ${feature.color} w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <feature.icon className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="text-center p-6 bg-white rounded-lg shadow-md">
+            <h3 className="text-xl font-semibold text-gray-700 mb-2">Expert Instructors</h3>
+            <p className="text-gray-500">Learn from industry professionals with years of experience.</p>
+          </div>
 
-        {/* Stats Section */}
-        <div className="mt-20 bg-gradient-to-r from-blue-600 to-purple-700 text-white p-12 rounded-3xl">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <h3 className="text-4xl font-bold mb-2">100,000+</h3>
-              <p className="text-blue-100">Students Trained</p>
-            </div>
-            <div>
-              <h3 className="text-4xl font-bold mb-2">90%</h3>
-              <p className="text-blue-100">Placement Rate</p>
-            </div>
-            <div>
-              <h3 className="text-4xl font-bold mb-2">500+</h3>
-              <p className="text-blue-100">Hiring Partners</p>
-            </div>
-            <div>
-              <h3 className="text-4xl font-bold mb-2">4.8/5</h3>
-              <p className="text-blue-100">Student Rating</p>
-            </div>
+          <div className="text-center p-6 bg-white rounded-lg shadow-md">
+            <h3 className="text-xl font-semibold text-gray-700 mb-2">Hands-On Projects</h3>
+            <p className="text-gray-500">Gain practical experience through real-world projects.</p>
+          </div>
+
+          <div className="text-center p-6 bg-white rounded-lg shadow-md">
+            <h3 className="text-xl font-semibold text-gray-700 mb-2">Career Support</h3>
+            <p className="text-gray-500">Get personalized career guidance and placement assistance.</p>
           </div>
         </div>
       </div>
+
+      {/* Add this new Statistics Counter Section */}
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Our Success in Numbers</h2>
+            <p className="text-xl text-blue-100">Proven track record of excellence in education</p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="text-5xl font-bold mb-2 counter" data-target="15000">
+                0
+              </div>
+              <div className="text-lg font-semibold">Students Trained</div>
+              <div className="text-blue-200 text-sm">Since 2018</div>
+            </div>
+
+            <div className="text-center">
+              <div className="text-5xl font-bold mb-2 counter" data-target="92">
+                0
+              </div>
+              <div className="text-lg font-semibold">Placement Rate %</div>
+              <div className="text-blue-200 text-sm">Industry Average</div>
+            </div>
+
+            <div className="text-center">
+              <div className="text-5xl font-bold mb-2 counter" data-target="11">
+                0
+              </div>
+              <div className="text-lg font-semibold">Professional Courses</div>
+              <div className="text-blue-200 text-sm">Industry Focused</div>
+            </div>
+
+            <div className="text-center">
+              <div className="text-5xl font-bold mb-2 counter" data-target="50">
+                0
+              </div>
+              <div className="text-lg font-semibold">Expert Instructors</div>
+              <div className="text-blue-200 text-sm">Industry Veterans</div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+            <div className="text-center">
+              <div className="text-4xl font-bold mb-2 counter" data-target="6">
+                0
+              </div>
+              <div className="text-lg font-semibold">Years of Excellence</div>
+              <div className="text-blue-200 text-sm">Established 2018</div>
+            </div>
+
+            <div className="text-center">
+              <div className="text-4xl font-bold mb-2 counter" data-target="500">
+                0
+              </div>
+              <div className="text-lg font-semibold">Companies Hiring</div>
+              <div className="text-blue-200 text-sm">Our Alumni</div>
+            </div>
+
+            <div className="text-center">
+              <div className="text-4xl font-bold mb-2 counter" data-target="98">
+                0
+              </div>
+              <div className="text-lg font-semibold">Student Satisfaction %</div>
+              <div className="text-blue-200 text-sm">Based on Reviews</div>
+            </div>
+          </div>
+        </div>
+      </section>
     </section>
   )
 }
+
+export default WhyChooseUs
