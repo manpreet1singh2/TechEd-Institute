@@ -5,8 +5,7 @@ A production-ready Next.js 15 application showcasing **11 professional training 
 ---
 📍 Live Demo
 You can view the live version of the project here:
-🔗 Live Site – [Courses Page](https://v0-new-project-vs7ityjvzh0.vercel.app/)
-
+🔗 Live Site – https://kzmoa2w5p80zn6snf41l.lite.vusercontent.net/
 
 
 ## ✨ Feature Overview
