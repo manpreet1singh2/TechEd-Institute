@@ -35,9 +35,12 @@ export function AnimatedCounter({ target, duration = 2000, suffix = "", prefix =
   useEffect(() => {
     if (!hasStarted) return
 
-    const startTime = performance.now()
+    let startTime: number
+    let animationFrame: number
 
     const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime
+
       const elapsed = currentTime - startTime
       const progress = Math.min(elapsed / duration, 1)
 
@@ -48,13 +51,19 @@ export function AnimatedCounter({ target, duration = 2000, suffix = "", prefix =
       setCount(currentCount)
 
       if (progress < 1) {
-        requestAnimationFrame(animate)
+        animationFrame = requestAnimationFrame(animate)
       } else {
         setCount(target)
       }
     }
 
-    requestAnimationFrame(animate)
+    animationFrame = requestAnimationFrame(animate)
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame)
+      }
+    }
   }, [hasStarted, target, duration])
 
   const formatNumber = (num: number) => {
@@ -139,11 +148,11 @@ export default function StatsCounter() {
           </div>
 
           {/* Primary Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-16">
             <div className="text-center group">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                 <Users className="w-12 h-12 mx-auto mb-4 text-blue-200" />
-                <AnimatedCounter target={10500} />
+                <AnimatedCounter target={5000} />
                 <div className="text-lg font-semibold mb-1">Students Trained</div>
                 <div className="text-blue-200 text-sm">Since 2018</div>
               </div>
@@ -151,18 +160,9 @@ export default function StatsCounter() {
 
             <div className="text-center group">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                <TrendingUp className="w-12 h-12 mx-auto mb-4 text-green-200" />
-                <AnimatedCounter target={95} suffix="%" />
-                <div className="text-lg font-semibold mb-1">Placement Rate</div>
-                <div className="text-blue-200 text-sm">Industry Leading</div>
-              </div>
-            </div>
-
-            <div className="text-center group">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                 <BookOpen className="w-12 h-12 mx-auto mb-4 text-purple-200" />
-                <AnimatedCounter target={45} />
-                <div className="text-lg font-semibold mb-1">Professional Courses</div>
+                <AnimatedCounter target={11} />
+                <div className="text-lg font-semibold mb-1">Courses Offered</div>
                 <div className="text-blue-200 text-sm">Industry Focused</div>
               </div>
             </div>
@@ -170,9 +170,27 @@ export default function StatsCounter() {
             <div className="text-center group">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
                 <Award className="w-12 h-12 mx-auto mb-4 text-yellow-200" />
-                <AnimatedCounter target={30} />
+                <AnimatedCounter target={50} />
                 <div className="text-lg font-semibold mb-1">Expert Instructors</div>
                 <div className="text-blue-200 text-sm">Industry Veterans</div>
+              </div>
+            </div>
+
+            <div className="text-center group">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+                <Clock className="w-12 h-12 mx-auto mb-4 text-blue-200" />
+                <AnimatedCounter target={5} />
+                <div className="text-lg font-semibold mb-1">Years Excellence</div>
+                <div className="text-blue-200 text-sm">Est. 2018</div>
+              </div>
+            </div>
+
+            <div className="text-center group">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+                <Star className="w-12 h-12 mx-auto mb-4 text-yellow-200" />
+                <AnimatedCounter target={95} suffix="%" />
+                <div className="text-lg font-semibold mb-1">Student Satisfaction</div>
+                <div className="text-blue-200 text-sm">Based on Reviews</div>
               </div>
             </div>
           </div>
@@ -181,28 +199,28 @@ export default function StatsCounter() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
-                <Clock className="w-8 h-8 mx-auto mb-3 text-blue-200" />
-                <AnimatedCounter target={7} />
-                <div className="text-sm font-semibold">Years of Excellence</div>
-                <div className="text-blue-200 text-xs">Established 2018</div>
+                <TrendingUp className="w-8 h-8 mx-auto mb-3 text-green-200" />
+                <AnimatedCounter target={94} suffix="%" />
+                <div className="text-sm font-semibold">Placement Rate</div>
+                <div className="text-blue-200 text-xs">Industry Leading</div>
               </div>
             </div>
 
             <div className="text-center">
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
                 <Building className="w-8 h-8 mx-auto mb-3 text-green-200" />
-                <AnimatedCounter target={200} suffix="+" />
-                <div className="text-sm font-semibold">Companies Hiring</div>
-                <div className="text-blue-200 text-xs">Our Alumni</div>
+                <AnimatedCounter target={750} suffix="+" />
+                <div className="text-sm font-semibold">Partner Companies</div>
+                <div className="text-blue-200 text-xs">Hiring Alumni</div>
               </div>
             </div>
 
             <div className="text-center">
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
-                <Star className="w-8 h-8 mx-auto mb-3 text-yellow-200" />
+                <Award className="w-8 h-8 mx-auto mb-3 text-yellow-200" />
                 <AnimatedCounter target={98} suffix="%" />
-                <div className="text-sm font-semibold">Student Satisfaction</div>
-                <div className="text-blue-200 text-xs">Based on Reviews</div>
+                <div className="text-sm font-semibold">Course Completion</div>
+                <div className="text-blue-200 text-xs">Student Success</div>
               </div>
             </div>
           </div>
